@@ -26,7 +26,7 @@ export default {
       state.currentLocationWeatherData = weatherData;
     },
     [WEATHER_MUTATIONS.SET_API_KEY](state:IWeatherState):void {
-      const apiKey = document.currentScript?.getAttribute('api-key');
+      const apiKey = document.currentScript?.getAttribute('data-api-key');
       if (apiKey) {
         state.apiKey = apiKey;
       }

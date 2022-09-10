@@ -6,8 +6,16 @@ module.exports = {
     'style-resources-loader': {
       preProcessor: 'scss',
       patterns: [
-        path.resolve(__dirname, './src/assets/styles/main.scss'),
+        '/home/alexander/Рабочий стол/Work/plumsail-test/src/assets/styles/main.scss',
       ],
+    },
+    i18n: {
+      locale: 'en',
+      fallbackLocale: 'en',
+      localeDir: 'locales',
+      enableInSFC: true,
+      includeLocales: false,
+      enableBridge: true,
     },
   },
   filenameHashing: false,

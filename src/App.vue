@@ -6,7 +6,7 @@
       <div class="widget__footer">Footer</div>
     </div>
     <div class="error" v-else>
-      <h2>Service is unavailable</h2>
+      <h2>{{$t('errors.common')}}</h2>
     </div>
   </div>
 </template>

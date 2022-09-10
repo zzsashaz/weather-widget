@@ -10,6 +10,7 @@ export type IUnit = 'metric' | 'standard' | 'imperial'
 export interface IWeatherState {
   units: IUnit
   currentLocationWeatherData: any
+  apiKey: string
 }
 export interface IRootState {
   geoLocation:IGeoLocationState

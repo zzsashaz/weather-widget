@@ -6,7 +6,8 @@ import { WEATHER_MUTATIONS } from '@/utils/constants';
 export default {
   state: ():IWeatherState => ({
     units: 'metric',
-    currentLocationWeatherData: null as any,
+    currentLocationWeatherData: null,
+    apiKey: '',
   }),
   actions: {
     async fetchLocationWeatherData(
@@ -15,6 +16,7 @@ export default {
       const weatherData = await fetchWeatherDataByCoordinates(
         context.rootGetters.getCurrentGeoLocation,
         context.getters.getCurrentUnits,
+        context.getters.getApiKey,
       );
       context.commit(WEATHER_MUTATIONS.SET_CURRENT_LOCATION_WEATHER, weatherData);
     },
@@ -23,6 +25,12 @@ export default {
     [WEATHER_MUTATIONS.SET_CURRENT_LOCATION_WEATHER](state:IWeatherState, weatherData:any):void {
       state.currentLocationWeatherData = weatherData;
     },
+    [WEATHER_MUTATIONS.SET_API_KEY](state:IWeatherState):void {
+      const apiKey = document.currentScript?.getAttribute('api-key');
+      if (apiKey) {
+        state.apiKey = apiKey;
+      }
+    },
   },
   getters: {
     getCurrentUnits(state:IWeatherState):IUnit {
@@ -30,6 +38,9 @@ export default {
     },
     getCurrentLocationWeatherData(state:IWeatherState):IUnit {
       return state.currentLocationWeatherData;
+    },
+    getApiKey(state:IWeatherState): string {
+      return state.apiKey;
     },
   },
 };

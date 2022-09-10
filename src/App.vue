@@ -18,11 +18,17 @@ export default Vue.extend({
   computed: {
     ...mapGetters({
       geoLocation: 'getCurrentGeoLocation',
+      isGeoLocationFailed: 'getGeoLocationStatus',
+      currentUnits: 'getCurrentUnits',
+      userLocationWeatherData: 'getCurrentLocationWeatherData',
     }),
   },
   watch: {
-    geoLocation() {
-      console.log(this.geoLocation);
+    async geoLocation() {
+      await this.$store.dispatch('fetchLocationWeatherData');
+    },
+    userLocationWeatherData() {
+      console.log(this.userLocationWeatherData);
     },
   },
 });

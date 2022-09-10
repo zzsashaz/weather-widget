@@ -1,5 +1,5 @@
 <template>
-  <div class="icon-body" v-html="icon"/>
+  <div class="icon-body" @click="$emit('click')" v-html="icon"/>
 </template>
 
 <script lang="ts">

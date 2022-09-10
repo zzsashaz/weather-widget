@@ -8,9 +8,23 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapGetters } from 'vuex';
 
 export default Vue.extend({
   name: 'widget',
+  mounted() {
+    this.$store.dispatch('requestCurrentGeoLocation');
+  },
+  computed: {
+    ...mapGetters({
+      geoLocation: 'getCurrentGeoLocation',
+    }),
+  },
+  watch: {
+    geoLocation() {
+      console.log(this.geoLocation);
+    },
+  },
 });
 </script>
 

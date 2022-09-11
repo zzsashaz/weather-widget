@@ -7,24 +7,12 @@
 
 <script>
 import Vue from 'vue';
-import { mapGetters } from 'vuex';
 
 export default Vue.extend({
   name: 'widget-header',
-  computed: {
-    ...mapGetters({
-      isGeoLocationFailed: 'getGeoLocationStatus',
-    }),
-  },
   methods: {
     async refreshData() {
-      if (!this.isGeoLocationFailed) {
-        try {
-          await this.$store.dispatch('fetchLocationWeatherData');
-        } catch (e) {
-          this.isApiError = true;
-        }
-      }
+      await this.$store.dispatch('fetchCurrentLocationWeatherData');
     },
   },
 });

@@ -8,17 +8,24 @@ export default {
     units: 'metric',
     currentLocationWeatherData: null,
     apiKey: '',
+    isApiAvailable: true,
   }),
   actions: {
-    async fetchLocationWeatherData(
+    async fetchCurrentLocationWeatherData(
       context:ActionContext<IWeatherState, IRootState>,
     ):Promise<void> {
-      const weatherData = await fetchWeatherDataByCoordinates(
-        context.rootGetters.getCurrentGeoLocation,
-        context.getters.getCurrentUnits,
-        context.getters.getApiKey,
-      );
-      context.commit(WEATHER_MUTATIONS.SET_CURRENT_LOCATION_WEATHER, weatherData);
+      try {
+        if (context.rootGetters.getGeoLocationStatus) {
+          const weatherData = await fetchWeatherDataByCoordinates(
+            context.rootGetters.getCurrentGeoLocation,
+            context.getters.getCurrentUnits,
+            context.getters.getApiKey,
+          );
+          context.commit(WEATHER_MUTATIONS.SET_CURRENT_LOCATION_WEATHER, weatherData);
+        }
+      } catch (e) {
+        context.commit(WEATHER_MUTATIONS.SET_API_STATUS, false);
+      }
     },
   },
   mutations: {
@@ -31,6 +38,9 @@ export default {
         state.apiKey = apiKey;
       }
     },
+    [WEATHER_MUTATIONS.SET_API_STATUS](state:IWeatherState, status:boolean):void {
+      state.isApiAvailable = status;
+    },
   },
   getters: {
     getCurrentUnits(state:IWeatherState):IUnit {
@@ -41,6 +51,9 @@ export default {
     },
     getApiKey(state:IWeatherState): string {
       return state.apiKey;
+    },
+    getApiStatus(state:IWeatherState): boolean {
+      return state.isApiAvailable;
     },
   },
 };

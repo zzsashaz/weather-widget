@@ -8,14 +8,15 @@ export default {
       currentLatitude: 0,
       currentLongitude: 0,
     },
-    isGeoLocationFailed: false,
+    isGeoLocationEnabled: false,
   }),
   actions: {
     requestCurrentGeoLocation(context:ActionContext<IGeoLocationState, IRootState>):void {
       navigator.geolocation.getCurrentPosition((location) => {
         context.commit(GEO_LOCATION_MUTATIONS.SET_CURRENT_LOCATION, location);
+        context.commit(GEO_LOCATION_MUTATIONS.SET_GEO_LOCATION_STATUS, true);
       }, () => {
-        context.commit(GEO_LOCATION_MUTATIONS.SET_GEO_LOCATION_FAILED);
+        context.commit(GEO_LOCATION_MUTATIONS.SET_GEO_LOCATION_STATUS, false);
       });
     },
   },
@@ -29,8 +30,8 @@ export default {
         currentLongitude: location.coords.longitude,
       };
     },
-    [GEO_LOCATION_MUTATIONS.SET_GEO_LOCATION_FAILED](state:IGeoLocationState):void {
-      state.isGeoLocationFailed = true;
+    [GEO_LOCATION_MUTATIONS.SET_GEO_LOCATION_STATUS](state:IGeoLocationState, status:boolean):void {
+      state.isGeoLocationEnabled = status;
     },
   },
   getters: {
@@ -38,7 +39,7 @@ export default {
       return state.location;
     },
     getGeoLocationStatus(state:IGeoLocationState):boolean {
-      return state.isGeoLocationFailed;
+      return state.isGeoLocationEnabled;
     },
   },
 };

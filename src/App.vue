@@ -1,6 +1,6 @@
 <template>
   <div id="widget">
-    <div class="widget" v-if="apiKey.length && !isApiError">
+    <div class="widget" v-if="apiKey.length && apiStatus">
       <widget-header/>
       <div class="widget__body">Body</div>
       <div class="widget__footer">Footer</div>
@@ -23,7 +23,6 @@ export default Vue.extend({
   components: { WidgetHeader },
   data() {
     return {
-      isApiError: false,
       ICONS,
     };
   },
@@ -36,19 +35,16 @@ export default Vue.extend({
   computed: {
     ...mapGetters({
       geoLocation: 'getCurrentGeoLocation',
-      isGeoLocationFailed: 'getGeoLocationStatus',
+      isGeoLocationEnabled: 'getGeoLocationStatus',
       currentUnits: 'getCurrentUnits',
       userLocationWeatherData: 'getCurrentLocationWeatherData',
       apiKey: 'getApiKey',
+      apiStatus: 'getApiStatus',
     }),
   },
   watch: {
     async geoLocation() {
-      try {
-        await this.$store.dispatch('fetchLocationWeatherData');
-      } catch (e) {
-        this.isApiError = true;
-      }
+      await this.$store.dispatch('fetchCurrentLocationWeatherData');
     },
     userLocationWeatherData() {
       console.log(this.userLocationWeatherData);

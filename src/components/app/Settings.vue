@@ -165,6 +165,7 @@ export default Vue.extend({
       border-radius: 3px;
       width: 100%;
       margin-right: 15px;
+      color: $base-text-color;
     }
   }
   &__language {

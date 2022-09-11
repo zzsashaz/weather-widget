@@ -8,7 +8,7 @@ export interface IGeoLocationState {
   location:IGeoLocation
   isGeoLocationEnabled:boolean
 }
-export type IUnit = 'metric' | 'standard' | 'imperial'
+export type IUnit = 'metric' | 'imperial'
 export interface IWeatherState {
   units: IUnit
   currentLocationWeatherData: TWeather

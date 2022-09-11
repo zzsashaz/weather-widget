@@ -4,7 +4,8 @@
     <icon v-if="!coolDownSeconds" icon-type="refresh" clickable @click="refreshData"/>
     <span v-if="coolDownSeconds">{{$t('measures.seconds',{ value:this.coolDownSeconds })}}</span>
   </div>
-  <icon icon-type="gear" clickable/>
+  <icon @click="$i18n.locale === 'en' ? $i18n.locale = 'ru' : $i18n.locale = 'en'"
+        icon-type="gear" clickable/>
 </div>
 </template>
 
@@ -41,5 +42,10 @@ export default Vue.extend({
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 28px;
+  &__refresh {
+    align-items: center;
+  }
 }
 </style>

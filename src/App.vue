@@ -3,7 +3,12 @@
     <div class="widget" v-if="apiKey.length && apiStatus">
       <widget-header/>
       <div class="widget__body">
-        <weather-card v-if="userLocationWeatherData" :weather="userLocationWeatherData"/>
+        <weather-card
+          v-if="userLocationWeatherData"
+          :weather="userLocationWeatherData"
+          :city="$t('city.userCity')"
+          :delete-available="false"
+        />
       </div>
       <div class="widget__footer">Footer</div>
     </div>

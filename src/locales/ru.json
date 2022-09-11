@@ -3,6 +3,30 @@
     "common": "Сервис временно не доступен"
   },
   "measures": {
-    "seconds": "{value} сек"
+    "seconds": "{value} сек",
+    "pressure": "{value} гПа",
+    "percent": "{value} %",
+    "degrees": "{value}°",
+    "speed": {
+      "metric": "{value} м/с",
+      "imperial": "{value} Миль/ч"
+    },
+    "temperature": {
+      "metric": "{value} °C",
+      "imperial": "{value} °F"
+    },
+    "windDirection": {
+      "N": "С",
+      "NE": "СВ",
+      "E": "В",
+      "SE": "ЮВ",
+      "S": "Ю",
+      "SW": "ЮЗ",
+      "W": "З",
+      "NW": "СЗ"
+    }
+  },
+  "city": {
+    "userCity": "Текущее местоположение"
   }
 }

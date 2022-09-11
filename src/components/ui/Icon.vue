@@ -22,7 +22,7 @@ export default Vue.extend({
     },
     clickable: {
       type: Boolean,
-      required: true,
+      default: false,
     },
   },
   computed: {

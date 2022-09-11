@@ -3,6 +3,30 @@
     "common": "Service is unavailable"
   },
   "measures": {
-    "seconds": "{value} sec"
+    "seconds": "{value} sec",
+    "pressure": "{value} hPa",
+    "percent": "{value} %",
+    "degrees": "{value}°",
+    "speed": {
+      "metric": "{value} m/s",
+      "imperial": "{value} MPH"
+    },
+    "temperature": {
+      "metric": "{value} °C",
+      "imperial": "{value} °F"
+    },
+    "windDirection": {
+      "N": "N",
+      "NE": "NE",
+      "E": "E",
+      "SE": "SE",
+      "S": "S",
+      "SW": "SW",
+      "W": "W",
+      "NW": "NW"
+    }
+  },
+  "city": {
+    "userCity": "Your location"
   }
 }

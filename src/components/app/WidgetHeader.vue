@@ -48,7 +48,7 @@ export default Vue.extend({
       await Promise.all(this.citiesNamesList.map(async (cityName) => {
         try {
           const weatherData = await this.$store.dispatch('fetchWeatherDataByCityName', cityName);
-          this.$store.commit(WEATHER_MUTATIONS.ADD_CITY_TO_MAP, weatherData);
+          this.$store.commit(WEATHER_MUTATIONS.UPDATE_CITY_MAP, weatherData);
         } catch (e) {
           this.$store.commit(WEATHER_MUTATIONS.SET_API_STATUS, false);
         }

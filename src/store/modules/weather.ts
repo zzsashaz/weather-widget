@@ -63,7 +63,7 @@ export default {
     [WEATHER_MUTATIONS.SET_UNITS_FORMAT](state:IWeatherState, units:IUnit):void {
       state.units = units;
     },
-    [WEATHER_MUTATIONS.ADD_CITY_TO_MAP](state:IWeatherState, weatherData:IWeatherData):void {
+    [WEATHER_MUTATIONS.UPDATE_CITY_MAP](state:IWeatherState, weatherData:IWeatherData):void {
       const memo = JSON.parse(JSON.stringify(state.citiesWeather));
       memo[weatherData.name] = weatherData;
       state.citiesWeather = memo;

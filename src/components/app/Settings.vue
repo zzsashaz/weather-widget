@@ -100,7 +100,7 @@ export default Vue.extend({
       await Promise.all(this.citiesNamesList.map(async (cityName) => {
         try {
           const weatherData = await this.$store.dispatch('fetchWeatherDataByCityName', cityName);
-          this.$store.commit(WEATHER_MUTATIONS.ADD_CITY_TO_MAP, weatherData);
+          this.$store.commit(WEATHER_MUTATIONS.UPDATE_CITY_MAP, weatherData);
         } catch (e) {
           this.$store.commit(WEATHER_MUTATIONS.SET_API_STATUS, false);
         }
@@ -115,7 +115,7 @@ export default Vue.extend({
       if (this.cityValue.length) {
         try {
           const weatherData = await this.$store.dispatch('fetchWeatherDataByCityName', this.cityValue);
-          this.$store.commit(WEATHER_MUTATIONS.ADD_CITY_TO_MAP, weatherData);
+          this.$store.commit(WEATHER_MUTATIONS.UPDATE_CITY_MAP, weatherData);
           this.cityValue = '';
         } catch (e) {
           if (e.response.data.cod === '404') {

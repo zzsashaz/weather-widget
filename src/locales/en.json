@@ -28,5 +28,22 @@
   },
   "city": {
     "userCity": "Your location"
+  },
+  "settings": {
+    "title": "Settings",
+    "city": {
+      "title": "Add city",
+      "error": "City not found"
+    },
+    "language": {
+      "title": "Change locale",
+      "ru": "Русский",
+      "en": "English"
+    },
+    "units": {
+      "title": "Change unit system",
+      "metric": "Metric",
+      "imperial": "Imperial"
+    }
   }
 }

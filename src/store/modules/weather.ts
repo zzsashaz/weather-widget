@@ -1,6 +1,8 @@
-import { IRootState, IUnit, IWeatherState } from '@/types/store';
+import {
+  ICitiesWeatherData, IRootState, IUnit, IWeatherState,
+} from '@/types/store';
 import { ActionContext } from 'vuex';
-import { fetchWeatherDataByCoordinates } from '@/api/weatherApi';
+import { fetchWeatherDataByCoordinates, fetchWeatherDataByName } from '@/api/weatherApi';
 import { WEATHER_MUTATIONS } from '@/utils/constants';
 import { IWeatherData } from '@/types/api';
 import type { TWeather } from '@/types/api';
@@ -11,6 +13,7 @@ export default {
     currentLocationWeatherData: null as TWeather,
     apiKey: '',
     isApiAvailable: true,
+    citiesWeather: { },
   }),
   actions: {
     async fetchCurrentLocationWeatherData(
@@ -29,6 +32,17 @@ export default {
         context.commit(WEATHER_MUTATIONS.SET_API_STATUS, false);
       }
     },
+    async fetchWeatherDataByCityName(
+      context:ActionContext<IWeatherState, IRootState>,
+      cityName:string,
+    ):Promise<IWeatherData> {
+      const weatherData = await fetchWeatherDataByName(
+        cityName,
+        context.getters.getCurrentUnits,
+        context.getters.getApiKey,
+      );
+      return weatherData;
+    },
   },
   mutations: {
     [WEATHER_MUTATIONS.SET_CURRENT_LOCATION_WEATHER](
@@ -46,6 +60,14 @@ export default {
     [WEATHER_MUTATIONS.SET_API_STATUS](state:IWeatherState, status:boolean):void {
       state.isApiAvailable = status;
     },
+    [WEATHER_MUTATIONS.SET_UNITS_FORMAT](state:IWeatherState, units:IUnit):void {
+      state.units = units;
+    },
+    [WEATHER_MUTATIONS.ADD_CITY_TO_MAP](state:IWeatherState, weatherData:IWeatherData):void {
+      const memo = JSON.parse(JSON.stringify(state.citiesWeather));
+      memo[weatherData.name] = weatherData;
+      state.citiesWeather = memo;
+    },
   },
   getters: {
     getCurrentUnits(state:IWeatherState):IUnit {
@@ -59,6 +81,9 @@ export default {
     },
     getApiStatus(state:IWeatherState): boolean {
       return state.isApiAvailable;
+    },
+    getCitiesWeather(state:IWeatherState):ICitiesWeatherData {
+      return state.citiesWeather;
     },
   },
 };

@@ -90,16 +90,16 @@ export default Vue.extend({
       if (degree > 112.5 && degree < 157.5) {
         return 'SE';
       }
-      if (degree >= 112.5 && degree <= 202.5) {
+      if (degree >= 157.5 && degree <= 202.5) {
         return 'S';
       }
       if (degree > 202.5 && degree < 247.5) {
         return 'SW';
       }
-      if (degree >= 292.5 && degree <= 292.5) {
+      if (degree >= 247.5 && degree <= 292.5) {
         return 'W';
       }
-      if (degree > 337.5 && degree < 337.5) {
+      if (degree > 292.5 && degree < 337.5) {
         return 'NW';
       }
       return 'N';
@@ -118,9 +118,9 @@ export default Vue.extend({
   padding: 5px 0;
   margin: 10px 0;
   border-top: 1px solid $base-border;
-  border-bottom: 1px solid $base-border;
   &__head {
     display: flex;
+    justify-content: space-between;
   }
   &__body {
     display: grid;

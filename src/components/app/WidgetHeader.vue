@@ -4,8 +4,7 @@
     <icon v-if="!coolDownSeconds" icon-type="refresh" clickable @click="refreshData"/>
     <span v-if="coolDownSeconds">{{$t('measures.seconds',{ value:this.coolDownSeconds })}}</span>
   </div>
-  <icon @click="$i18n.locale === 'en' ? $i18n.locale = 'ru' : $i18n.locale = 'en'"
-        icon-type="gear" clickable/>
+  <icon @click="$emit('openSettings')" icon-type="gear" clickable/>
 </div>
 </template>
 

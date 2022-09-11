@@ -1,7 +1,8 @@
 <template>
   <div id="widget">
     <div class="widget" v-if="apiKey.length && apiStatus">
-      <widget-header/>
+      <widget-header @openSettings="setSettingsStatus(true)"/>
+      <settings v-if="settingsStatus" @closeSettings="setSettingsStatus(false)"/>
       <div class="widget__body">
         <weather-card
           v-if="userLocationWeatherData"
@@ -9,8 +10,13 @@
           :city="$t('city.userCity')"
           :delete-available="false"
         />
+        <weather-card
+          v-for="weather in citiesWeatherList"
+          :key="`${weather.name}-${Date.now()}`"
+          :city="weather.name"
+          :weather="weather"
+        />
       </div>
-      <div class="widget__footer">Footer</div>
     </div>
     <div class="error" v-else>
       <h2>{{$t('errors.common')}}</h2>
@@ -25,13 +31,16 @@ import { WEATHER_MUTATIONS } from '@/utils/constants';
 import ICONS from '@/utils/icons';
 import WidgetHeader from '@/components/app/WidgetHeader.vue';
 import WeatherCard from '@/components/app/WeatherCard.vue';
+import Settings from '@/components/app/Settings.vue';
+import { IWeatherData } from '@/types/api';
 
 export default Vue.extend({
   name: 'widget',
-  components: { WeatherCard, WidgetHeader },
+  components: { Settings, WeatherCard, WidgetHeader },
   data() {
     return {
       ICONS,
+      settingsStatus: false,
     };
   },
   created() {
@@ -48,17 +57,20 @@ export default Vue.extend({
       userLocationWeatherData: 'getCurrentLocationWeatherData',
       apiKey: 'getApiKey',
       apiStatus: 'getApiStatus',
+      citiesWeather: 'getCitiesWeather',
     }),
+    citiesWeatherList():Array<IWeatherData> {
+      return Object.values(this.citiesWeather);
+    },
   },
   watch: {
     async geoLocation() {
       await this.$store.dispatch('fetchCurrentLocationWeatherData');
     },
-    userLocationWeatherData() {
-      console.log(this.userLocationWeatherData);
-    },
-    apiKey() {
-      console.log(this.apiKey);
+  },
+  methods: {
+    setSettingsStatus(status:boolean) {
+      this.settingsStatus = status;
     },
   },
 });
@@ -68,15 +80,7 @@ export default Vue.extend({
 .widget {
   background: $widget-background;
   padding: 8px 16px;
-  &__header {
-
-  }
-  &__body {
-
-  }
-  &__footer {
-
-  }
+  position: relative;
 }
 .error {
   background: $error-background;

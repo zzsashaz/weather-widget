@@ -6,7 +6,7 @@ import i18n from './i18n';
 
 Vue.config.productionTip = false;
 
-const tagName = document.currentScript?.getAttribute('widget-selector');
+const tagName = document.currentScript?.getAttribute('data-widget-selector');
 
 declareGlobalComponents();
 

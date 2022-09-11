@@ -1,24 +1,38 @@
-# plumsail-test
-
 ## Project setup
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
+## Project build
 ```
 yarn build
 ```
 
-### Lints and fixes files
-```
-yarn lint
+## Widget basic usage
+
+```html
+<weather-widget></weather-widget>
+<script src="dist/js/app.js" data-api-key="YOUR_OPEN_WEATHER_MAP_API_KEY"></script>
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Widget attributes you can use
+
+* Init language (default = ```en```)
+```html
+<weather-widget></weather-widget>
+<script
+        src="dist/js/app.js"
+        data-api-key="YOUR_OPEN_WEATHER_MAP_API_KEY"
+        data-lang="ru|en"
+></script>
+```
+
+* selector of tag for widget (default = ```weather-widget```)
+```html
+<my-own-widget></my-own-widget>
+<script
+        src="dist/js/app.js"
+        data-api-key="YOUR_OPEN_WEATHER_MAP_API_KEY"
+        data-widget-selector="my-own-widget"
+></script>
+```

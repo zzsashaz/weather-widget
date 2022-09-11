@@ -99,6 +99,8 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .widget {
   background: $widget-background;
+  border-radius: 16px;
+  border: 1px solid $base-border;
   padding: 8px 16px;
   position: relative;
 }

@@ -140,6 +140,10 @@ export default Vue.extend({
   background: $settings-background;
   z-index: 100;
   padding: 8px 16px;
+  border-radius: 16px;
+  * {
+    color: $settings-text-color
+  }
   &__header {
     display: flex;
     justify-content: space-between;
@@ -148,8 +152,8 @@ export default Vue.extend({
     margin-bottom: 10px;
   }
   &__city {
-    border-top: 1px solid $base-border;
-    border-bottom: 1px solid $base-border;
+    border-top: 1px solid $settings-border;
+    border-bottom: 1px solid $settings-border;
     padding: 8px 0;
   }
   &__city-form {
@@ -164,7 +168,7 @@ export default Vue.extend({
     }
   }
   &__language {
-    border-bottom: 1px solid $base-border;
+    border-bottom: 1px solid $settings-border;
     padding: 8px 0;
   }
   &__language-option {
@@ -178,7 +182,7 @@ export default Vue.extend({
     }
   }
   &__units {
-    border-bottom: 1px solid $base-border;
+    border-bottom: 1px solid $settings-border;
     padding: 8px 0;
   }
   &__units-option {

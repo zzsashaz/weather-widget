@@ -2,11 +2,13 @@ import { IRootState, IUnit, IWeatherState } from '@/types/store';
 import { ActionContext } from 'vuex';
 import { fetchWeatherDataByCoordinates } from '@/api/weatherApi';
 import { WEATHER_MUTATIONS } from '@/utils/constants';
+import { IWeatherData } from '@/types/api';
+import type { TWeather } from '@/types/api';
 
 export default {
   state: ():IWeatherState => ({
     units: 'metric',
-    currentLocationWeatherData: null,
+    currentLocationWeatherData: null as TWeather,
     apiKey: '',
     isApiAvailable: true,
   }),
@@ -29,7 +31,10 @@ export default {
     },
   },
   mutations: {
-    [WEATHER_MUTATIONS.SET_CURRENT_LOCATION_WEATHER](state:IWeatherState, weatherData:any):void {
+    [WEATHER_MUTATIONS.SET_CURRENT_LOCATION_WEATHER](
+      state:IWeatherState,
+      weatherData:IWeatherData,
+    ):void {
       state.currentLocationWeatherData = weatherData;
     },
     [WEATHER_MUTATIONS.SET_API_KEY](state:IWeatherState):void {
@@ -46,7 +51,7 @@ export default {
     getCurrentUnits(state:IWeatherState):IUnit {
       return state.units;
     },
-    getCurrentLocationWeatherData(state:IWeatherState):IUnit {
+    getCurrentLocationWeatherData(state:IWeatherState):TWeather {
       return state.currentLocationWeatherData;
     },
     getApiKey(state:IWeatherState): string {

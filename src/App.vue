@@ -2,7 +2,9 @@
   <div id="widget">
     <div class="widget" v-if="apiKey.length && apiStatus">
       <widget-header/>
-      <div class="widget__body">Body</div>
+      <div class="widget__body">
+        <weather-card v-if="userLocationWeatherData" :weather="userLocationWeatherData"/>
+      </div>
       <div class="widget__footer">Footer</div>
     </div>
     <div class="error" v-else>
@@ -17,10 +19,11 @@ import { mapGetters } from 'vuex';
 import { WEATHER_MUTATIONS } from '@/utils/constants';
 import ICONS from '@/utils/icons';
 import WidgetHeader from '@/components/app/WidgetHeader.vue';
+import WeatherCard from '@/components/app/WeatherCard.vue';
 
 export default Vue.extend({
   name: 'widget',
-  components: { WidgetHeader },
+  components: { WeatherCard, WidgetHeader },
   data() {
     return {
       ICONS,

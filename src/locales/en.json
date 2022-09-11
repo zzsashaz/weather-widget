@@ -1,5 +1,8 @@
 {
   "errors": {
     "common": "Service is unavailable"
+  },
+  "measures": {
+    "seconds": "{value} sec"
   }
 }

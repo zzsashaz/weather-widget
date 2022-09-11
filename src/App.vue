@@ -10,12 +10,14 @@
           :city="$t('city.userCity')"
           :delete-available="false"
         />
-        <weather-card
-          v-for="weather in citiesWeatherList"
-          :key="`${weather.name}-${Date.now()}`"
-          :city="weather.name"
-          :weather="weather"
-        />
+        <draggable>
+          <weather-card
+            v-for="weather in citiesWeatherList"
+            :key="`${weather.name}-${Date.now()}`"
+            :city="weather.name"
+            :weather="weather"
+          />
+        </draggable>
       </div>
     </div>
     <div class="error" v-else>
@@ -33,10 +35,13 @@ import WidgetHeader from '@/components/app/WidgetHeader.vue';
 import WeatherCard from '@/components/app/WeatherCard.vue';
 import Settings from '@/components/app/Settings.vue';
 import { IWeatherData } from '@/types/api';
+import draggable from 'vuedraggable';
 
 export default Vue.extend({
   name: 'widget',
-  components: { Settings, WeatherCard, WidgetHeader },
+  components: {
+    Settings, WeatherCard, WidgetHeader, draggable,
+  },
   data() {
     return {
       ICONS,

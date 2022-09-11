@@ -6,17 +6,17 @@
     </div>
     <div class="settings__city">
       <span>{{$t('settings.city.title')}}</span>
-      <form class="settings__city-form" action="#" @keyup.enter="addCity">
+      <div class="settings__city-form" @keyup.enter.stop="addCity">
         <input v-model="cityValue" type="text" class="settings_city-input">
         <icon clickable @click="addCity" icon-type="plus"/>
-      </form>
+      </div>
       <div class="settings__city-error" v-if="isShowingError">
         <p>{{$t('settings.city.error')}}</p>
       </div>
     </div>
     <div class="settings__language">
       <span>{{$t('settings.language.title')}}</span>
-      <form class="settings__language-form">
+      <div class="settings__language-form">
         <div class="settings__language-option">
           <input
             v-model="$i18n.locale"
@@ -39,11 +39,11 @@
           >
           <label for="language-ru">{{$t('settings.language.ru')}}</label>
         </div>
-      </form>
+      </div>
     </div>
     <div class="settings__units">
       <span>{{$t('settings.units.title')}}</span>
-      <form class="settings__units-form">
+      <div class="settings__units-form">
         <div class="settings__units-option">
           <input
             v-model="units"
@@ -66,7 +66,7 @@
           >
           <label for="units-imperial">{{$t('settings.units.imperial')}}</label>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </template>

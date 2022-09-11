@@ -119,6 +119,9 @@ export default Vue.extend({
   padding: 5px 0;
   margin: 10px 0;
   border-top: 1px solid $base-border;
+  &:hover {
+    cursor: grabbing;
+  }
   &__head {
     display: flex;
     justify-content: space-between;

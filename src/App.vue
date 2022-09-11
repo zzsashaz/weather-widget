@@ -4,13 +4,13 @@
       <widget-header @openSettings="setSettingsStatus(true)"/>
       <settings v-if="settingsStatus" @closeSettings="setSettingsStatus(false)"/>
       <div class="widget__body">
-        <weather-card
-          v-if="userLocationWeatherData"
-          :weather="userLocationWeatherData"
-          :city="$t('city.userCity')"
-          :delete-available="false"
-        />
         <draggable>
+          <weather-card
+            v-if="userLocationWeatherData"
+            :weather="userLocationWeatherData"
+            :city="$t('city.userCity')"
+            :delete-available="false"
+          />
           <weather-card
             v-for="weather in citiesWeatherList"
             :key="`${weather.name}-${Date.now()}`"

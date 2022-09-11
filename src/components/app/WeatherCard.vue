@@ -13,32 +13,41 @@
       <img :src="`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`" alt="weather-icon">
     </div>
     <div class="weather-card__wind">
+      <icon icon-type="wind"/>
       <icon icon-type="direction" :style="`transform: rotate(${weather.wind.deg}deg)`"/>
       {{ $t(`measures.speed.${currentUnits}`, { value: weather.wind.speed }) }}
       {{ $t(`measures.windDirection.${windDirection}`) }}
     </div>
     <div class="weather-card__temperature">
+      <icon icon-type="temp"/>
       {{ $t(`measures.temperature.${currentUnits}`, { value: weather.main.temp }) }}
     </div>
     <div class="weather-card__feeling">
+      <icon icon-type="feels_like"/>
       {{ $t(`measures.temperature.${currentUnits}`, { value: weather.main.feels_like }) }}
     </div>
     <div class="weather-card__max-temperature">
+      <icon icon-type="temp_max"/>
       {{ $t(`measures.temperature.${currentUnits}`, { value: weather.main.temp_max }) }}
     </div>
     <div class="weather-card__min-temperature">
+      <icon icon-type="temp_min"/>
       {{ $t(`measures.temperature.${currentUnits}`, { value: weather.main.temp_min }) }}
     </div>
     <div class="weather-card__sunrise">
+      <icon icon-type="sunrise"/>
       {{ $d(weather.sys.sunrise*1000, 'time') }}
     </div>
     <div class="weather-card__sunset">
+      <icon icon-type="sunset"/>
       {{ $d(weather.sys.sunset*1000, 'time') }}
     </div>
     <div class="weather-card__humidity">
+      <icon icon-type="humidity"/>
       {{ $t('measures.percent', { value: weather.main.humidity }) }}
     </div>
     <div class="weather-card__pressure">
+      <icon icon-type="pressure"/>
       {{ $t('measures.pressure', { value: weather.main.pressure }) }}
     </div>
   </div>

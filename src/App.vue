@@ -1,12 +1,7 @@
 <template>
   <div id="widget">
     <div class="widget" v-if="apiKey.length && !isApiError">
-      <div class="widget__header">
-        <icon iconType="gear"/>
-        <icon iconType="close"/>
-        <icon iconType="gpsOff"/>
-        <icon iconType="gpsOn"/>
-      </div>
+      <widget-header/>
       <div class="widget__body">Body</div>
       <div class="widget__footer">Footer</div>
     </div>
@@ -21,9 +16,11 @@ import Vue from 'vue';
 import { mapGetters } from 'vuex';
 import { WEATHER_MUTATIONS } from '@/utils/constants';
 import ICONS from '@/utils/icons';
+import WidgetHeader from '@/components/app/WidgetHeader.vue';
 
 export default Vue.extend({
   name: 'widget',
+  components: { WidgetHeader },
   data() {
     return {
       isApiError: false,
@@ -66,6 +63,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .widget {
   background: $widget-background;
+  padding: 8px 16px;
   &__header {
 
   }

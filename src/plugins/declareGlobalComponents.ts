@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import icon from '@/components/ui/icon.vue';
+import Icon from '@/components/ui/Icon.vue';
 
 export default ():void => {
-  Vue.component('icon', icon);
+  Vue.component('icon', Icon);
 };

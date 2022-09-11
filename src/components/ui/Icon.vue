@@ -1,5 +1,10 @@
 <template>
-  <div class="icon-body" @click="$emit('click')" v-html="icon"/>
+  <div
+    class="icon-body"
+    :class="{'icon-body_clickable':clickable}"
+    @click="onClick"
+    v-html="icon"
+  />
 </template>
 
 <script lang="ts">
@@ -15,6 +20,10 @@ export default Vue.extend({
       type: String as PropType<IIconsTypes>,
       required: true,
     },
+    clickable: {
+      type: Boolean,
+      required: true,
+    },
   },
   computed: {
     icon():string {
@@ -26,6 +35,13 @@ export default Vue.extend({
       ICONS,
     };
   },
+  methods: {
+    onClick() {
+      if (this.clickable) {
+        this.$emit('click');
+      }
+    },
+  },
 });
 </script>
 
@@ -34,5 +50,8 @@ export default Vue.extend({
   display: inline-block;
   width: 24px;
   height: 24px;
+  &_clickable {
+    cursor: pointer;
+  }
 }
 </style>

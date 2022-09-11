@@ -6,7 +6,7 @@
     </div>
     <div class="settings__city">
       <span>{{$t('settings.city.title')}}</span>
-      <form class="settings__city-form" action="#">
+      <form class="settings__city-form" action="#" @keyup.enter="addCity">
         <input v-model="cityValue" type="text" class="settings_city-input">
         <icon clickable @click="addCity" icon-type="plus"/>
       </form>

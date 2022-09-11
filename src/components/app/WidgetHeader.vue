@@ -27,7 +27,6 @@ export default Vue.extend({
     initRefreshCoolDown(seconds:number) {
       this.coolDownSeconds = seconds;
       this.coolDownIntervalId = setInterval(() => {
-        console.log(this.coolDownSeconds);
         this.coolDownSeconds -= 1;
         if (this.coolDownSeconds === 0) {
           clearInterval(this.coolDownIntervalId);

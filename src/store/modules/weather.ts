@@ -67,11 +67,13 @@ export default {
       const memo = JSON.parse(JSON.stringify(state.citiesWeather));
       memo[weatherData.name] = weatherData;
       state.citiesWeather = memo;
+      localStorage.setItem('cities', JSON.stringify(Object.keys(memo)));
     },
     [WEATHER_MUTATIONS.DELETE_CITY_FROM_MAP](state:IWeatherState, city:string):void {
       const memo = JSON.parse(JSON.stringify(state.citiesWeather));
       delete memo[city];
       state.citiesWeather = memo;
+      localStorage.setItem('cities', JSON.stringify(Object.keys(memo)));
     },
   },
   getters: {

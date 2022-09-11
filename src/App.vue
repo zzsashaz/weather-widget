@@ -43,11 +43,12 @@ export default Vue.extend({
       settingsStatus: false,
     };
   },
-  created() {
+  async created() {
     this.$store.commit(WEATHER_MUTATIONS.SET_API_KEY);
     if (this.apiKey.length) {
       this.$store.dispatch('requestCurrentGeoLocation');
     }
+    await this.initCitiesDataFromLocalStorage();
   },
   computed: {
     ...mapGetters({
@@ -71,6 +72,20 @@ export default Vue.extend({
   methods: {
     setSettingsStatus(status:boolean) {
       this.settingsStatus = status;
+    },
+    async initCitiesDataFromLocalStorage() {
+      const cities = localStorage.getItem('cities');
+      if (cities) {
+        const citiesList = JSON.parse(cities);
+        await Promise.all(citiesList.map(async (cityName:string) => {
+          try {
+            const weatherData = await this.$store.dispatch('fetchWeatherDataByCityName', cityName);
+            this.$store.commit(WEATHER_MUTATIONS.ADD_CITY_TO_MAP, weatherData);
+          } catch (e) {
+            this.$store.commit(WEATHER_MUTATIONS.SET_API_STATUS, false);
+          }
+        }));
+      }
     },
   },
 });

@@ -74,6 +74,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { WEATHER_MUTATIONS } from '@/utils/constants';
+import { mapGetters } from 'vuex';
 
 export default Vue.extend({
   name: 'settings',
@@ -84,10 +85,26 @@ export default Vue.extend({
       isShowingError: false,
     };
   },
+  computed: {
+    ...mapGetters({
+      citiesWeather: 'getCitiesWeather',
+    }),
+    citiesNamesList():Array<string> {
+      return Object.keys(this.citiesWeather);
+    },
+  },
   watch: {
     async units() {
       this.$store.commit(WEATHER_MUTATIONS.SET_UNITS_FORMAT, this.units);
       await this.$store.dispatch('fetchCurrentLocationWeatherData');
+      await Promise.all(this.citiesNamesList.map(async (cityName) => {
+        try {
+          const weatherData = await this.$store.dispatch('fetchWeatherDataByCityName', cityName);
+          this.$store.commit(WEATHER_MUTATIONS.ADD_CITY_TO_MAP, weatherData);
+        } catch (e) {
+          this.$store.commit(WEATHER_MUTATIONS.SET_API_STATUS, false);
+        }
+      }));
     },
     cityValue() {
       this.isShowingError = false;
@@ -99,9 +116,12 @@ export default Vue.extend({
         try {
           const weatherData = await this.$store.dispatch('fetchWeatherDataByCityName', this.cityValue);
           this.$store.commit(WEATHER_MUTATIONS.ADD_CITY_TO_MAP, weatherData);
+          this.cityValue = '';
         } catch (e) {
           if (e.response.data.cod === '404') {
             this.isShowingError = true;
+          } else {
+            this.$store.commit(WEATHER_MUTATIONS.SET_API_STATUS, false);
           }
         }
       }

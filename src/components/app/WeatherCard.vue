@@ -58,6 +58,7 @@
 import Vue, { PropType } from 'vue';
 import { IWeatherData } from '@/types/api';
 import { mapGetters } from 'vuex';
+import { WEATHER_MUTATIONS } from '@/utils/constants';
 
 export default Vue.extend({
   name: 'weather-card',
@@ -107,7 +108,7 @@ export default Vue.extend({
   },
   methods: {
     deleteCity() {
-      console.log(this.weather.name);
+      this.$store.commit(WEATHER_MUTATIONS.DELETE_CITY_FROM_MAP, this.weather.name);
     },
   },
 });

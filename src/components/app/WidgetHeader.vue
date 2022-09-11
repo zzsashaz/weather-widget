@@ -10,6 +10,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapGetters } from 'vuex';
+import { WEATHER_MUTATIONS } from '@/utils/constants';
 
 export default Vue.extend({
   name: 'widget-header',
@@ -19,9 +21,18 @@ export default Vue.extend({
       coolDownIntervalId: 0,
     };
   },
+  computed: {
+    ...mapGetters({
+      citiesWeather: 'getCitiesWeather',
+    }),
+    citiesNamesList():Array<string> {
+      return Object.keys(this.citiesWeather);
+    },
+  },
   methods: {
     async refreshData() {
       await this.$store.dispatch('fetchCurrentLocationWeatherData');
+      await this.refreshCityWeatherData();
       this.initRefreshCoolDown(30);
     },
     initRefreshCoolDown(seconds:number) {
@@ -32,6 +43,16 @@ export default Vue.extend({
           clearInterval(this.coolDownIntervalId);
         }
       }, 1000);
+    },
+    async refreshCityWeatherData() {
+      await Promise.all(this.citiesNamesList.map(async (cityName) => {
+        try {
+          const weatherData = await this.$store.dispatch('fetchWeatherDataByCityName', cityName);
+          this.$store.commit(WEATHER_MUTATIONS.ADD_CITY_TO_MAP, weatherData);
+        } catch (e) {
+          this.$store.commit(WEATHER_MUTATIONS.SET_API_STATUS, false);
+        }
+      }));
     },
   },
 });

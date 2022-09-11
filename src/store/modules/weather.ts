@@ -68,6 +68,11 @@ export default {
       memo[weatherData.name] = weatherData;
       state.citiesWeather = memo;
     },
+    [WEATHER_MUTATIONS.DELETE_CITY_FROM_MAP](state:IWeatherState, city:string):void {
+      const memo = JSON.parse(JSON.stringify(state.citiesWeather));
+      delete memo[city];
+      state.citiesWeather = memo;
+    },
   },
   getters: {
     getCurrentUnits(state:IWeatherState):IUnit {

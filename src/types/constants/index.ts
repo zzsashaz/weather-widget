@@ -9,6 +9,7 @@ export interface IWeatherMutations {
   SET_API_KEY:string,
   SET_API_STATUS:string,
   SET_UNITS_FORMAT:string,
-  ADD_CITY_TO_MAP:string
+  ADD_CITY_TO_MAP:string,
+  DELETE_CITY_FROM_MAP: string
 }
 export type IIconsTypes = keyof typeof ICONS

@@ -33,7 +33,8 @@
     "title": "Settings",
     "city": {
       "title": "Add city",
-      "error": "City not found"
+      "error": "City not found",
+      "success" : "Added success"
     },
     "language": {
       "title": "Change locale",

@@ -13,6 +13,9 @@
       <div class="settings__city-error" v-if="isShowingError">
         <p>{{$t('settings.city.error')}}</p>
       </div>
+      <div class="settings__city-success" v-if="isShowingSuccess">
+        <p>{{$t('settings.city.success')}}</p>
+      </div>
     </div>
     <div class="settings__language">
       <span>{{$t('settings.language.title')}}</span>
@@ -83,6 +86,7 @@ export default Vue.extend({
       cityValue: '',
       units: this.$store.getters.getCurrentUnits,
       isShowingError: false,
+      isShowingSuccess: false,
     };
   },
   computed: {
@@ -108,6 +112,7 @@ export default Vue.extend({
     },
     cityValue() {
       this.isShowingError = false;
+      this.isShowingSuccess = false;
     },
   },
   methods: {
@@ -117,6 +122,9 @@ export default Vue.extend({
           const weatherData = await this.$store.dispatch('fetchWeatherDataByCityName', this.cityValue);
           this.$store.commit(WEATHER_MUTATIONS.UPDATE_CITY_MAP, weatherData);
           this.cityValue = '';
+          this.$nextTick(() => {
+            this.isShowingSuccess = true;
+          });
         } catch (e) {
           if (e.response.data.cod === '404') {
             this.isShowingError = true;
@@ -141,8 +149,19 @@ export default Vue.extend({
   z-index: 100;
   padding: 8px 16px;
   border-radius: 16px;
-  * {
+  span {
     color: $settings-text-color
+  }
+  label {
+    color: $settings-text-color
+  }
+  &__city-error {
+    color: $error;
+    font-size: 18px;
+  }
+  &__city-success {
+    color: $success;
+    font-size: 18px;
   }
   &__header {
     display: flex;

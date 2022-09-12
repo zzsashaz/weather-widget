@@ -82,9 +82,9 @@ export default Vue.extend({
       const cities = localStorage.getItem('cities');
       if (cities) {
         const citiesList = JSON.parse(cities);
-        await Promise.all(citiesList.map(async (cityName:string) => {
+        await Promise.all(citiesList.map(async (cityId:string) => {
           try {
-            const weatherData = await this.$store.dispatch('fetchWeatherDataByCityName', cityName);
+            const weatherData = await this.$store.dispatch('fetchWeatherDataByCityId', cityId);
             this.$store.commit(WEATHER_MUTATIONS.UPDATE_CITY_MAP, weatherData);
           } catch (e) {
             this.$store.commit(WEATHER_MUTATIONS.SET_API_STATUS, false);

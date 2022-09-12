@@ -2,7 +2,11 @@ import {
   ICitiesWeatherData, IRootState, IUnit, IWeatherState,
 } from '@/types/store';
 import { ActionContext } from 'vuex';
-import { fetchWeatherDataByCoordinates, fetchWeatherDataByName } from '@/api/weatherApi';
+import {
+  fetchWeatherDataByCoordinates,
+  fetchWeatherDataById,
+  fetchWeatherDataByName,
+} from '@/api/weatherApi';
 import { WEATHER_MUTATIONS } from '@/utils/constants';
 import { IWeatherData } from '@/types/api';
 import type { TWeather } from '@/types/api';
@@ -31,6 +35,17 @@ export default {
       } catch (e) {
         context.commit(WEATHER_MUTATIONS.SET_API_STATUS, false);
       }
+    },
+    async fetchWeatherDataByCityId(
+      context:ActionContext<IWeatherState, IRootState>,
+      cityId:string,
+    ):Promise<IWeatherData> {
+      const weatherData = await fetchWeatherDataById(
+        cityId,
+        context.getters.getCurrentUnits,
+        context.getters.getApiKey,
+      );
+      return weatherData;
     },
     async fetchWeatherDataByCityName(
       context:ActionContext<IWeatherState, IRootState>,
@@ -65,7 +80,7 @@ export default {
     },
     [WEATHER_MUTATIONS.UPDATE_CITY_MAP](state:IWeatherState, weatherData:IWeatherData):void {
       const memo = JSON.parse(JSON.stringify(state.citiesWeather));
-      memo[weatherData.name] = weatherData;
+      memo[weatherData.id] = weatherData;
       state.citiesWeather = memo;
       localStorage.setItem('cities', JSON.stringify(Object.keys(memo)));
     },

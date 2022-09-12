@@ -16,6 +16,15 @@ export const fetchWeatherDataByCoordinates = async (
   return data;
 };
 
+export const fetchWeatherDataById = async (
+  cityId:string,
+  units:IUnit,
+  apiKey:string,
+):Promise<IWeatherData> => {
+  const { data } = await HTTPClient.$get(`${WEATHER_API_URL}`, { params: { id: cityId, appid: apiKey, units } });
+  return data;
+};
+
 export const fetchWeatherDataByName = async (
   cityName:string,
   units:IUnit,

@@ -25,7 +25,7 @@ export default Vue.extend({
     ...mapGetters({
       citiesWeather: 'getCitiesWeather',
     }),
-    citiesNamesList():Array<string> {
+    citiesIdList():Array<string> {
       return Object.keys(this.citiesWeather);
     },
   },
@@ -45,9 +45,9 @@ export default Vue.extend({
       }, 1000);
     },
     async refreshCityWeatherData() {
-      await Promise.all(this.citiesNamesList.map(async (cityName) => {
+      await Promise.all(this.citiesIdList.map(async (cityId) => {
         try {
-          const weatherData = await this.$store.dispatch('fetchWeatherDataByCityName', cityName);
+          const weatherData = await this.$store.dispatch('fetchWeatherDataByCityId', cityId);
           this.$store.commit(WEATHER_MUTATIONS.UPDATE_CITY_MAP, weatherData);
         } catch (e) {
           this.$store.commit(WEATHER_MUTATIONS.SET_API_STATUS, false);

@@ -108,7 +108,7 @@ export default Vue.extend({
   },
   methods: {
     deleteCity() {
-      this.$store.commit(WEATHER_MUTATIONS.DELETE_CITY_FROM_MAP, this.weather.name);
+      this.$store.commit(WEATHER_MUTATIONS.DELETE_CITY_FROM_MAP, this.weather.id);
     },
   },
 });
